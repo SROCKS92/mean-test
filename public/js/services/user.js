@@ -9,7 +9,14 @@ angular.module('userService',[])
 				return $http.post('/api/user', todoData);
 			},
 			delete : function(id) {
-				return $http.delete('/api/todos/' + id);
+				return $http.delete('/api/user/' + id);
+			},
+			findd : function(id) {
+				return $http.get('/api/task/' + id);
+			},
+			comment:function(data) {
+				return $http.get('/api/comment/' + id);
 			}
+		
 		}
 	}]);

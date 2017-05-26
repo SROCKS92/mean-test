@@ -1,0 +1,46 @@
+<div class="container">
+
+		<!-- HEADER AND TODO COUNT -->
+		<div class="jumbotron text-center">
+			<h1>User-Task <span class="label label-info">{{ todos.length}}</span></h1>
+			<clock format="12"></clock>
+		</div>
+
+		<!-- TODO LIST -->
+		<div id="todo-list" class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+
+				
+
+				<!-- LOOP OVER THE TODOS IN $scope.todos -->
+				<div class="checkbox" ng-repeat="todo in todos">
+					<label>
+						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text+" tasktime: "+todo.time }}
+					</label>
+				</div>
+				
+
+				<p class="text-center" ng-show="loading">
+					<span class="fa fa-spinner fa-spin fa-3x"></span>
+				</p>
+
+			</div>
+		</div>
+		<div id="user-list" class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+
+				
+
+				
+				<div class="checkbox" ng-repeat="user in users">
+					<label>
+						<input type="checkbox" ng-click="deleteUser(user._id)"> {{ user.firstname+" taskname: "+user.taskname+" Remaining Time: "+ user.remaintime }}
+					</label>
+				</div>
+
+				<p class="text-center" ng-show="loading">
+					<span class="fa fa-spinner fa-spin fa-3x"></span>
+				</p>
+
+			</div>
+		</div>

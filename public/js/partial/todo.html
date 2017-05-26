@@ -1,0 +1,18 @@
+<div id="todo-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+
+						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+						<input type="text" class="form-control input-lg text-center" style="width:50% !important" placeholder="Please enter the task here" ng-model="formData.text">
+					</div>
+					<input type="text" class="form-control input-lg text-center" style="width:50% !important" placeholder="Please enter the task time here" ng-model="formData.time">
+					</div>
+
+					<!-- createToDo() WILL CREATE NEW TODOS -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+					<!--<button type="submit" class="btn btn-primary btn-lg" ng-click="registerUser=!registerUser">Register</button><a href="/register"></a>
+						<button type="submit" class="btn btn-primary btn-lg" ng-click="loginUser=!loginUser">Login</button><a href="/login"></a> -->
+				</form>
+			</div>
+		</div>

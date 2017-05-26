@@ -14,9 +14,7 @@ angular.module('userService',[])
 			findd : function(id) {
 				return $http.get('/api/task/' + id);
 			},
-			comment:function(data) {
-				return $http.get('/api/comment/' + id);
-			}
+		
 		
 		}
 	}]);

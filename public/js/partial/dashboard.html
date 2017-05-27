@@ -7,13 +7,13 @@
 		</div>
 
 		<!-- TODO LIST -->
-		<div id="todo-list" class="row">
+	<!--	<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
 				
 
-				<!-- LOOP OVER THE TODOS IN $scope.todos -->
-				<div class="checkbox" ng-repeat="todo in todos">
+				<!- LOOP OVER THE TODOS IN $scope.todos -->
+				<!--<div class="checkbox" ng-repeat="todo in todos">
 					<label>
 						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text+" tasktime: "+todo.time }}
 					</label>
@@ -25,7 +25,7 @@
 				</p>
 
 			</div>
-		</div>
+		</div>  -->
 		<div id="user-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
@@ -36,11 +36,50 @@
 					<label>
 						<input type="checkbox" ng-click="deleteUser(user._id)"> {{ user.firstname+" taskname: "+user.taskname+" Remaining Time: "+ user.remaintime }}
 					</label>
+					<img src="{{user.path.slice(7,-1)}}" alt="Smiley face" height="100" width="100">
 				</div>
 
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 				</p>
 
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-click="showComment=!showComment">Show Comment</button>
+		<div id="user-list" class="row" ng-show="showComment">
+			<div class="col-sm-4 col-sm-offset-4">
+
+				
+
+				
+				<div class="checkbox" ng-repeat="comm in comments">
+					<label>
+						<!--<input type="checkbox" ng-click="deleteUser(user._id)"> -->{{ comm.comment}}
+					</label>
+				</div>
+
+				<p class="text-center" ng-show="loading">
+					<span class="fa fa-spinner fa-spin fa-3x"></span>
+				</p>
+
+			</div>
+		</div>
+
+		<div id="todo-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+
+						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+						<input type="text" class="form-control input-lg text-center" style="width:50% !important" placeholder="Please enter the comment here" ng-model="formExtra.comment">
+					</div>
+					
+					</div>
+
+					<!-- createToDo() WILL CREATE NEW TODOS -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="addComment()">Add Comment</button>
+					<!--<button type="submit" class="btn btn-primary btn-lg" ng-click="registerUser=!registerUser">Register</button><a href="/register"></a>
+						<button type="submit" class="btn btn-primary btn-lg" ng-click="loginUser=!loginUser">Login</button><a href="/login"></a> -->
+				</form>
 			</div>
 		</div>

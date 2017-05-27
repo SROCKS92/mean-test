@@ -26,6 +26,11 @@ module.exports = mongoose.model('User', {
         default: '',
         required:true
     },
+    path: {
+        type: String,
+        default: '',
+        required:false
+    },
     task: {type: mongoose.Schema.Types.ObjectId, ref: 'Task'},
       created_at: {type: Date, default: Date.now}
 

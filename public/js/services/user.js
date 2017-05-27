@@ -15,6 +15,14 @@ angular.module('userService',[])
 				return $http.get('/api/task/' + id);
 			},
 		
+		comment: function(id) {
+			
+				return $http.post('/api/comment', id);
+			},
+			getcomment: function(id) {
+			    
+				return $http.get('/api/comment', id);
+			}
 		
 		}
 	}]);

@@ -1,14 +1,14 @@
-angular.module('userController', [])
+angular.module('userController', ['ngFileUpload'])
 
-// inject the Todo service factory into our controller
-.controller('mainController', ['$scope', '$http', 'Users', 'Userprofile', function($scope, $http, Users, Userprofile) {
+
+.controller('mainController', ['$scope', '$http','Upload' ,'Users', 'Userprofile','$location', function($scope,$http,Upload, Users, Userprofile,$location) {
 	$scope.formData = {};
 	$scope.loading = true;
 	$scope.addComment = function() {
 		//alert();
 
 
-		if ($scope.formExtra.text != undefined) {
+		if ($scope.formExtra.comment != undefined) {
 			$scope.loading = true;
 
 			//console.log($scope.formData);
@@ -60,13 +60,35 @@ angular.module('userController', [])
 			});
 		}
 	};
+	$scope.getcomment = function() {
+
+		Users.getcomment()
+			.success(function(data) {
+				$scope.comments = data;
+			//	console.log(data);
+				$scope.loading = false;
+			});
+
+	}
+	$scope.getcomment();
 	Userprofile.get()
 		.success(function(data) {
-			$scope.users = data;
 
-			console.log(abs);
-			$scope.jsData;
-			//$scope.users.remaintime=[];
+			calculateTime(data);
+
+
+			//console.log($scope.users);
+			$scope.loading = false;
+		});
+
+	function calculateTime(data) {
+
+		$scope.users = data;
+
+
+		$scope.jsData;
+		//$scope.users.remaintime=[];
+		
 			for (var i = 0; i < data.length; i++) {
 				var currentData = data[i];
 				var abs = checkid($scope.todos, currentData.taskname);
@@ -78,19 +100,16 @@ angular.module('userController', [])
 				$scope.users[i].remaintime = check < 0 ? 'Timeout' : check;
 
 			}
+		
 
-
-
-			//console.log($scope.users);
-			$scope.loading = false;
-		});
+	}
 
 	$scope.createUser = function() {
 		//  alert();
 
 		if ($scope.formUser.firstname != undefined) {
 			$scope.loading = true;
-
+           
 
 			Userprofile.create($scope.formUser)
 
@@ -125,5 +144,41 @@ angular.module('userController', [])
 			$scope.todos = data;
 		});
 	};
+	$scope.upload = function (file) {
+		console.log(file);
+        Upload.upload({
+            url: '/api/upload/image',
+            data: {file: file}
+        }).then(function (resp) {
+          $scope.formUser.path=resp.data;
+        });
+    };
+
+	$scope.onFileSelect = function(image) {
+		alert('asd');
+  $scope.uploadInProgress = true;
+  $scope.uploadProgress = 0;
+
+  if (angular.isArray(image)) {
+    image = image[0];
+  }
+
+  $scope.upload = $upload.upload({
+    url: '/api/upload/image',
+    method: 'POST',
+    data: {
+      type: 'profile'
+    },
+    file: image
+  }).progress(function(event) {
+    $scope.uploadProgress = Math.floor(event.loaded / event.total);
+    $scope.$apply();
+  }).success(function(data, status, headers, config) {
+    AlertService.success('Photo uploaded!');
+  }).error(function(err) {
+    $scope.uploadInProgress = false;
+    AlertService.error('Error uploading file: ' + err.message || err);
+  });
+};
 
 }]);

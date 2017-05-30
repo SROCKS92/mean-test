@@ -2,7 +2,7 @@
 
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
-			<h1>User-Task <span class="label label-info">{{ todos.length}}</span></h1>
+			<h1>User-Task </h1>
 		<!--	<clock format="12"></clock>-->
 		</div>
 
@@ -37,42 +37,21 @@
 					<label>
 						<input type="checkbox" ng-click="openUser(userData._id)"> {{ userData.firstname+" taskname: "+userData.taskname+" Remaining Time: "+ userData.remaintime }} <p>{{ clock  | date:'medium'}}</p>
 					</label>
-					<img src="{{userData.path}}" alt="Smiley face" height="100" width="100">
+					<img src="{{userData.path}}" alt="displaypic" height="100" width="100">
 
 				</div>
-
+                  <button type="submit" class="btn btn-primary btn-lg" ng-click="open()">Open</button>
+                  <button type="submit" class="btn btn-primary btn-lg" ng-click="showComment=!showComment">Show Comment</button>
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 				</p>
 
 			</div>
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog" ng-show="modal">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
 
 		</div>
 
-		<button type="submit" class="btn btn-primary" ng-click="showComment=!showComment">Show Comment</button>
+		
 		<div id="user-list" class="row" ng-show="showComment">
 			<div class="col-sm-4 col-sm-offset-4">
 
@@ -96,15 +75,15 @@
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
 					<div class="form-group">
-
+                          <button type="submit" class="btn btn-primary btn-lg" style="float:right;" ng-click="addComment()">Add Comment</button>
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center" style="width:50% !important" placeholder="Please enter the comment here" ng-model="formExtra.comment">
+						<input type="text" class="form-control input-lg text-center" style="width:75% !important" placeholder="Please enter the comment here" ng-model="formExtra.comment">
 					</div>
 
 					</div>
 
 					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="addComment()">Add Comment</button>
+					
 					<!--<button type="submit" class="btn btn-primary btn-lg" ng-click="registerUser=!registerUser">Register</button><a href="/register"></a>
 						<button type="submit" class="btn btn-primary btn-lg" ng-click="loginUser=!loginUser">Login</button><a href="/login"></a> -->
 				</form>

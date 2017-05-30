@@ -25,6 +25,9 @@
   <script src="lib/angular-cookies/angular-cookies.js"></script>
 	<script src="lib/angular-route/angular-route.min.js"></script>
   <script src="lib/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+  <scropt src="js/controllers/modalInstance.js"
+<!-- Include Bootstrap CSS CDN link -->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
   <!--<script src="lib/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"></script>-->
 	<script src="lib/ng-file-upload/dist/ng-file-upload.min.js"></script>
 
@@ -45,15 +48,15 @@
 <nav class = "navbar navbar-default" role = "navigation">
 
    <div class = "navbar-header">
-      <a class = "navbar-brand" href = "/#!/register">Register</a>
+      <a class = "navbar-brand" href = "/#!/register" ng-show="$route.current.activetab != 'dashboard'">Register</a>
 
    </div>
 
    <div>
       <ul class = "nav navbar-nav">
-         <li><a href = "/" ng-class="{active:isActive('/')}">Login</a></li>
-          <li><a href = "/#!/todo" ng-class="{active:isActive('/todo')}">Todo</a></li>
-
+         <li><a href = "/" ng-show="$route.current.activetab != 'dashboard'">Login</a></li>
+          <li><a href = "/#!/todo" ng-show="$route.current.activetab != 'dashboard'">Todo</a></li>
+          <li><a href = "/api/logout" ng-show="$route.current.activetab == 'dashboard'" ng-click="logout()">LogOut</a></li>
       </ul>
    </div>
 

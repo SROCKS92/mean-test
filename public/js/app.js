@@ -1,4 +1,4 @@
-var app=angular.module('userTask',['userController','userService','UserprofileService','login','ngRoute'])
+var app=angular.module('userTask',['userController','userService','UserprofileService','login','ngRoute','clockService'])
 .config(function($routeProvider) {
     $routeProvider
       .when('/', {
@@ -15,7 +15,7 @@ var app=angular.module('userTask',['userController','userService','UserprofileSe
       })
         .when('/dashboard/:id', {
         templateUrl: 'js/partial/dashboard.html',
-        controller: 'mainController'
+        controller: 'loginController'
       }).otherwise({
         redirectTo: '/login'
       });

@@ -1,16 +1,16 @@
-<div class="container">
+<div class="container" ng-init="initUser()">
 
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
 			<h1>User-Task <span class="label label-info">{{ todos.length}}</span></h1>
-			<clock format="12"></clock>
+		<!--	<clock format="12"></clock>-->
 		</div>
 
 		<!-- TODO LIST -->
 	<!--	<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
-				
+
 
 				<!- LOOP OVER THE TODOS IN $scope.todos -->
 				<!--<div class="checkbox" ng-repeat="todo in todos">
@@ -18,7 +18,7 @@
 						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text+" tasktime: "+todo.time }}
 					</label>
 				</div>
-				
+
 
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
@@ -29,14 +29,16 @@
 		<div id="user-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
-				
 
-				
-				<div class="checkbox" ng-repeat="user in users">
+
+
+			<!--	<div class="checkbox" ng-repeat="user in users" ng-if="{{users.length>0}}">-->
+<div class="checkbox" >
 					<label>
-						<input type="checkbox" ng-click="deleteUser(user._id)"> {{ user.firstname+" taskname: "+user.taskname+" Remaining Time: "+ user.remaintime }}
+						<input type="checkbox" ng-click="openUser(userData._id)"> {{ userData.firstname+" taskname: "+userData.taskname+" Remaining Time: "+ userData.remaintime }} <p>{{ clock  | date:'medium'}}</p>
 					</label>
-					<img src="{{user.path.slice(7,-1)}}" alt="Smiley face" height="100" width="100">
+					<img src="{{userData.path}}" alt="Smiley face" height="100" width="100">
+
 				</div>
 
 				<p class="text-center" ng-show="loading">
@@ -44,14 +46,39 @@
 				</p>
 
 			</div>
+
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" ng-show="modal">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 		</div>
+
 		<button type="submit" class="btn btn-primary" ng-click="showComment=!showComment">Show Comment</button>
 		<div id="user-list" class="row" ng-show="showComment">
 			<div class="col-sm-4 col-sm-offset-4">
 
-				
 
-				
+
+
 				<div class="checkbox" ng-repeat="comm in comments">
 					<label>
 						<!--<input type="checkbox" ng-click="deleteUser(user._id)"> -->{{ comm.comment}}
@@ -73,7 +100,7 @@
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 						<input type="text" class="form-control input-lg text-center" style="width:50% !important" placeholder="Please enter the comment here" ng-model="formExtra.comment">
 					</div>
-					
+
 					</div>
 
 					<!-- createToDo() WILL CREATE NEW TODOS -->

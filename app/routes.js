@@ -4,6 +4,17 @@ var Comment = require('./models/comment');
 var express = require('express')
 var app = express();
 var multer  = require('multer');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+/*app.use(cookieParser());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  genid: function(req) {
+    return genuuid(); // use UUIDs for session IDs
+  },
+})); */
 //var upload = multer();
  var upload = multer({ dest: './public/uploads/' });
 
@@ -51,7 +62,7 @@ module.exports = function(app) {
   //console.log(req.files, 'files');
   res.json(req.files[0].path);
   // req.body contains the text fields
- 
+
  // upload();
 })
     app.get('/api/user', function(req, res) {
@@ -80,12 +91,13 @@ module.exports = function(app) {
         });
 
     });
+
      app.post('/api/comment', function(req, res) {
 
         // create a todo, information comes from AJAX request from Angular
         Comment.create({
             comment: req.body.comment,
-            
+
             done: false
         }, function(err, todo) {
             if (err)
@@ -97,7 +109,7 @@ module.exports = function(app) {
 
     });
      app.post('/api/userprofile/login', function(req, res) {
-         
+
         // create a todo, information comes from AJAX request from Angular
         User.findOne({
             userid: req.body.userid
@@ -107,12 +119,13 @@ module.exports = function(app) {
             if (err) {
                 res.send(err);
             }
-
+           req.session.userName = req.body.userid;
+            console.log(req.session);
             res.json(user); // return all todos in JSON format
         });
     });
 
-    
+
     app.get('/api/userprofile', function(req, res) {
         // use mongoose to get all todos in the database
         getUserProfile(res);

@@ -1,11 +1,12 @@
-angular.module('login',[])
+angular.module('login',['ngCookies','ui.bootstrap'])
 
-.controller('loginController', ['$scope','$http','Userprofile', function($scope,$http,Userprofile) {
+.controller('loginController', ['$scope','$http','Userprofile','$routeParams','Clock','$cookieStore', function($scope,$http,Userprofile,$routeParams,Clock,$cookieStore) {
 		$scope.formData = {};
 		$scope.loading = true;
 
-		
-		
+
+
+
 $scope.login=function() {
 			if ($scope.formLogin.userid != undefined && $scope.formLogin.password != undefined) {
 				$scope.loading = true;
@@ -14,53 +15,45 @@ $scope.login=function() {
 				//$http.post('/api/userprofile/login',$scope.formLogin)
 				Userprofile.findUser($scope.formLogin)
 
-					
-					.success(function(data) {
+
+					.then(function(data) {
 						$scope.loading = false;
-						//console.log(data);
+					//	console.log($cookieStore);
 						// $location.path("/dashboard");
-						if(data.password==$scope.formLogin.password){
-							window.location='/#/dashboard/'+data.userid;
-						//	calculateTimes(data);
+						if(data.data.password==$scope.formLogin.password){
+						//
+              // $scope.userData=data;
+						    //$scope.userData.remaintime=Userprofile.calculateTime(data,$scope.$parent.todos);
+
+
                                 $scope.formLogin = {};
+                               window.location='/#!/dashboard/'+data.data.userid;
 						}
-						
-						 
-						//$scope.todos = data; 
+
 					});
 			}
+		};
+$scope.initUser=function() {
+	var login={'userid':$routeParams.id};
+$cookieStore.put('userName','sdfsdf');
+    Userprofile.findUser(login)
+					.then(function(data) {
+						$scope.userData=data.data;
+						    $scope.userData.remaintime=Userprofile.calculateTime(data.data,$scope.$parent.todos);
+						    $scope.userData.path=data.data.path.slice(7,-1);
+						    console.log($cookieStore.get('userName'));
+	}
 
 
-		}
+)};
+					Clock.TimeCtrl($scope);
+					$scope.open = function () {
+console.log('opening pop up');
+var modalInstance = $modal.open({
+templateUrl: 'js/partia/popup.html',
+});
+}
 
-	/*	function checkids(input, id) {
-		var i = 0,
-			len = input.length;
-		for (; i < len; i++) {
-			if (input[i].text == id) {
-				return input[i];
-			}
-		}
-		return null;
-	};
-	function calculateTimes(data) {
 
-		$scope.userCheck = data;
-
-                 console.log(data);
-			
-				var currentData = data;
-				var abs = checkids($scope.todos, currentData.taskname);
-                    
-				var d = new Date(currentData.created_at);
-				d.setHours(d.getHours() + Number(abs.time));
-				var n = new Date();
-				var check = parseInt(((n - d) / 1000) / 3600) - (abs.time != '' ? abs.time : 0);
-				$scope.userCheck.remaintime = check < 0 ? 'Timeout' : check;
-
-			
-		
-
-	} */
 		}])
   ;
